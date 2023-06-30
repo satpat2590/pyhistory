@@ -1,0 +1,26 @@
+version: 3
+# Listing out all services which will be 'stacked' through docker build
+services: 
+  db: 
+    image: mysql:latest
+    volumes: 
+      - db_data:/var/lib/mysql 
+    restart: always
+    environment: 
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASWORD: ${MYSQL_PASSWORD}
+  
+  app: 
+    depends_on: 
+      - db 
+    build: .
+    ports: 
+      - "8000:80"
+    environment: 
+      - DATABASE_URL=mysql+mysqldb://${MYSQL_USER}:${MYSQL_PASSWORD}@db/${MYSQL_DATABASE}?charset=utf8mb4
+
+
+volumes: 
+  db_data: 

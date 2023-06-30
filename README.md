@@ -13,4 +13,12 @@ There will be an REST API developed which will allow anyone to perform CRUD oper
 the data will be entered initially through functions which will call MySQL commands to perform CRUD operations. 
 
 
+## Running this Bad Boy 
+
+Simply call 
+```bash
+docker build -t <image-name> . 
+```
+
+
 
