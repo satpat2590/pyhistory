@@ -7,13 +7,13 @@ try:
 
     # Using the connect() method with user details. 
     # Be sure to place all passwords and user info within an .env file!  
+    #connection = mysql.connector.connect(host=os.environ["MYSQL_HOST_TEST"], database=os.environ["MYSQL_DATABASE_TEST"], user=os.environ["MYSQL_USER_TEST"], password=os.environ["MYSQL_PASSWORD_TEST"])
     connection = mysql.connector.connect(
-        host=os.environ["MYSQL_HOST_TEST"],
-        database=os.environ["MYSQL_DATABASE_TEST"],
-        user=os.environ["MYSQL_USER_TEST"],
-        password=os.environ["MYSQL_PASSWORD_TEST"]
+        host='db',
+        user='root',
+        password='root',
+        database="history"
     )
-
     # Run following code ONLY IF successfully connected to database
     if connection.is_connected():
         # get_server_info() retrieves the server details (which is your personal computer or cloud)
@@ -38,7 +38,7 @@ try:
 
 # If any exception/error is thrown within the try block, automatically jump here... 
 except Error as e: 
-    print("Error connecting to the MySQL database\n")
+    print(f"Error connecting to the MySQL database\n\t{e}")
     
 # Mandatory block of code to run whenever either the try block finishes or exception is handled. 
 finally: 

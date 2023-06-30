@@ -1,26 +1,38 @@
-version: 3
+version: '3'
 # Listing out all services which will be 'stacked' through docker build
 services: 
-  db: 
-    image: mysql:latest
-    volumes: 
-      - db_data:/var/lib/mysql 
-    restart: always
-    environment: 
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASWORD: ${MYSQL_PASSWORD}
-  
+  # App service which has the build specified within the '.' directory as a Dockerfile. 
+  #   Uses the python:latest image to build the container 
   app: 
     depends_on: 
       - db 
     build: .
-    ports: 
-      - "8000:80"
+    #ports: 
+    #  - "8000:80"
     environment: 
       - DATABASE_URL=mysql+mysqldb://${MYSQL_USER}:${MYSQL_PASSWORD}@db/${MYSQL_DATABASE}?charset=utf8mb4
+    networks:
+      - backend
 
+  # Database service which uses the mysql docker image 
+  db: 
+    image: mysql:latest
+    # The volume or 'file resource' that contains the 'history' database information 
+    volumes: 
+      - db_data:/var/lib/mysql 
+    restart: always
+    # Setting the environment variables for the db docker container
+    environment: 
+      MYSQL_DATABASE: 'history'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3307:3306'
+    networks:
+      - backend 
+
+networks:
+  backend:
+    driver: bridge
 
 volumes: 
   db_data: 

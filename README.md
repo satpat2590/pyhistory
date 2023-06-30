@@ -15,6 +15,8 @@ the data will be entered initially through functions which will call MySQL comma
 
 ## Running this Bad Boy 
 
+Still working on getting the docker-compose up 
+
 Simply call 
 ```bash
 docker build -t <image-name> . 
