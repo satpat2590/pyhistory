@@ -1,9 +1,20 @@
 # MySQL Practice Tutorial!
 
-## Setting up MySQL 
+## Setting up MySQL (For use with Docker!)
+
+If you don't wish to download MySQL on your host computer and save that memory and headache, no worries! This repository contains a file pyhistory/docker-compose.yml which 
+handles multiple 'services' which is a fancy way of calling it a 'docker image which is fine-tuned and placed on a custom network'. 
+
+The capabilities are quite amazing! You can connect a MySQL docker container with a Python docker container with a Node docker container and then essentially build your
+tech stack altogether. This is much MUCH better (or not) than having to initialize a docker image for a base OS such as Ubuntu and having to manually download each package to suit your build. 
+
+Follow the steps listed in the base pyhistory/README.md in order to run the various docker containers and set up your MySQL!
+
+## Setting up MySQL (On Host Computer!)
 
 You can go on the MySQL website and find a debian package if you're running this on a debian machine such as Linux/Ubuntu. If not, there should be examples online to find easily downloadable versions for both Windows and Mac
 
+### Ubuntu/Debian based systems 
 
 1. Get the debian package for MySQL 
 

@@ -7,8 +7,6 @@ services:
     depends_on: 
       - db 
     build: .
-    #ports: 
-    #  - "8000:80"
     environment: 
       - DATABASE_URL=mysql+mysqldb://${MYSQL_USER}:${MYSQL_PASSWORD}@db/${MYSQL_DATABASE}?charset=utf8mb4
     networks:
@@ -23,8 +21,8 @@ services:
     restart: always
     # Setting the environment variables for the db docker container
     environment: 
-      MYSQL_DATABASE: 'history'
-      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - '3307:3306'
     networks:
