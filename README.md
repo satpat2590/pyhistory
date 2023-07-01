@@ -20,7 +20,7 @@ Here's the outline of the repository:
 
 Instead of running everything via the host computer, I decided to utilize docker-compose to handle multiple containers simultaneously on the same network. 
 
-Make sure to download Docker through the website here: [https://www.docker.com/](Docker for Dummies!)
+Make sure to download Docker through the website here: [Docker for Dummies!](https://www.docker.com/)
 
 OR, you can use a package manager such as 'apt' or 'snap' to install it. Instructions can be found online for your OS and version!  
 
@@ -37,7 +37,7 @@ Here are the custom additions in case you're feeling a tad lazy today and don't 
 4. CMD is the command that gets run whenever you run the docker image and turn it into a container 
     1. In this case, you're running 'tail -f /dev/null' which is essentially running the container forever unless stopped by force (docker stop or docker-compose down) 
 
-All details for Dockerfiles can be found here: [https://docs.docker.com/engine/reference/builder/](Dockerfile for Dummies!)
+All details for Dockerfiles can be found here: [Dockerfile for Dummies!](https://docs.docker.com/engine/reference/builder/)
 
 ### Docker Compose
 
@@ -50,7 +50,7 @@ have the slightest clue beyond the basics, but here is a breakdown of this parti
 We'll break this down by service so that you get a better idea of what is actually happening (hopefully) 
 
 #### App 
-
+```bash
   app: 
     depends_on: 
       - db 
@@ -59,7 +59,7 @@ We'll break this down by service so that you get a better idea of what is actual
       - DATABASE_URL=mysql+mysqldb://${MYSQL_USER}:${MYSQL_PASSWORD}@db/${MYSQL_DATABASE}?charset=utf8mb4
     networks:
       - backend
-
+```
 
 The 'app' service (you can name this whatever you want) is configured above. 
 
@@ -97,7 +97,7 @@ Be careful if utilizing custom networks for other services. If you specify a cus
 which may cause synchronization issues. 
 
 #### DB
-
+```bash
   db: 
     image: mysql:latest
     volumes: 
@@ -110,7 +110,7 @@ which may cause synchronization issues.
       - '3307:3306'
     networks:
       - backend 
-
+```
 We've already covered some of the configuration details in 'app' so we can just gloss over the details here: 
 
 1. 
@@ -124,12 +124,12 @@ utilizing the same network (in this case, 'backend').
 Any MySQL database changes are persisted through the file '/var/lib/mysql' in the 'db' service (container) and by principle of volume mounting, also changed within the 
 'db_data' which is also shared by the 'app' service. 
 
-More information on volumes can be found here! [https://docs.docker.com/storage/volumes/](Volumes for Dummies!)
+More information on volumes can be found here! [Volumes for Dummies!](https://docs.docker.com/storage/volumes/)
 
 3. 
 'restart'! To be honest, no idea, but people say it's good practice to set to 'always' when using a database as a service. 
 
-Here are more technical details: [https://sreeninet.wordpress.com/2017/08/15/docker-features-for-handling-containers-death-and-resurrection/](Container Death & Resurrection)
+Here are more technical details: [Container Death & Resurrection](https://sreeninet.wordpress.com/2017/08/15/docker-features-for-handling-containers-death-and-resurrection/)
 
 4. 
 'ports' maps a port on your host computer to one on the container. So basically: <host_port>:<container_port> 
@@ -168,7 +168,7 @@ However, in the build.sh script, there's already a method to open two new termin
 
 Congratulations! You should be within the containers now. 
 
-*Note: If you can't run the 'gnome-terminal -- [executable]' command then try finding your terminal type first through here (for Ubuntu) [https://askubuntu.com/questions/640096/how-do-i-check-which-terminal-i-am-using](Ubuntu/Linux Terminal Checker) and then run the corresponding command found here: [https://askubuntu.com/questions/46627/how-can-i-make-a-script-that-opens-terminal-windows-and-executes-commands-in-the](New Terminal Commands)* 
+*Note: If you can't run the 'gnome-terminal -- [executable]' command then try finding your terminal type first through here (for Ubuntu) [Ubuntu/Linux Terminal Checker](https://askubuntu.com/questions/640096/how-do-i-check-which-terminal-i-am-using) and then run the corresponding command found here: [New Terminal Commands](https://askubuntu.com/questions/46627/how-can-i-make-a-script-that-opens-terminal-windows-and-executes-commands-in-the)* 
 
 *Additional Note: The 'docker exec' commands runs the docker container using the container name found via 'docker ps'. In order to create your own docker container name, simply go into the pyhistory/docker-compose.yml file and add the field 'container-name' to both services, and then define them as you wish. Make sure to also change the container name argument within the 'docker exec' command in the pyhistory/build.sh file*
 
