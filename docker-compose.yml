@@ -18,6 +18,7 @@ services:
     # The volume or 'file resource' that contains the 'history' database information 
     volumes: 
       - db_data:/var/lib/mysql 
+      - ~/history-files:/var/lib/mysql-files/
     restart: always
     # Setting the environment variables for the db docker container
     environment: 
